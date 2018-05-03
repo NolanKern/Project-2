@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Aura*6983",
+    "password": "",
     "database": "scaffold_db",
     "host": "localhost",
     "dialect": "mysql"
@@ -14,10 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "rolwil3",
-    "password": "Aura*6983",
-    "database": "iv_design_database",
-    "host": "mysql.iv-design.net",
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
     "dialect": "mysql"
   }
 }
