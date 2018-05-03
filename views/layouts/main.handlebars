@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+		<link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
+        {{!-- bootstrap styling --}}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+		{{!-- burger styling --}}
+        <link rel="stylesheet" href="/assets/css/style.css" type="text/css" />
+
+		<title>Eat-Da-Burger!</title>
+        
+        {{!-- jquery link --}}
+		<script src="https://code.jquery.com/jquery.js"></script>
+        {{!-- bootstrap js link --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+		{{!-- firebase js --}}
+		<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+	</head>
+	<body>
+		{{{ body }}}
+		<script>
+			// Initialize Firebase
+			var config = {
+				apiKey: "AIzaSyAFqpX9PhNVTyGMKTxeTtH16p1aceZYu3E",
+				authDomain: "skeletor-6bdaa.firebaseapp.com",
+				databaseURL: "https://skeletor-6bdaa.firebaseio.com",
+				projectId: "skeletor-6bdaa",
+				storageBucket: "",
+				messagingSenderId: "578425950603"
+			};
+			firebase.initializeApp(config);
+
+			var provider = new firebase.auth.GoogleAuthProvider();
+
+			firebase.auth().signInWithPopup(provider).then(function(result) {
+				// This gives you a Google Access Token. You can use it to access the Google API.
+				var token = result.credential.accessToken;
+				// The signed-in user info.
+				var user = result.user;
+
+				console.log("THIS IS THE ID TOKEN " + id_token);
+				onsole.log("THIS IS THE TOKEN " + token);
+				// ...
+				}).catch(function(error) {
+				// Handle Errors here.
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				// The email of the user's account used.
+				var email = error.email;
+				// The firebase.auth.AuthCredential type that was used.
+				var credential = error.credential;
+				// ...
+
+				console.log(errorMessage);
+			});
+		</script>
+	</body>
+</html>
