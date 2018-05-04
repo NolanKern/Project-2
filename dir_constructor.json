@@ -4,13 +4,13 @@
             "path": "/config",
             "type": ".js",
             "name": "connection",
-            "append content": ""
+            "append content": "var mysql = require('mysql');\r\nvar connection = mysql.createConnection({\r\nhost: 'localhost',\r\nuser: 'root',\r\npassword: '',\r\ndatabase: '',\r\n});\r\nconnection.connect(function(err) {\r\n if(err) throw err;\r\nconsole.log('connected as id ' + connection.threadId);\r\n});\r\nmodule.exports = connection;"
         },
         {
             "path": "/config",
             "type": ".js",
             "name": "orm",
-            "append content":""
+            "append content":"var connection = require('./connection');\r\nvar orm = {\r\n\r\n};\r\nmodule.exports = orm;"
         },
         {
             "path": "/",
@@ -22,7 +22,10 @@
             "path": "/controllers",
             "type": ".js",
             "name": "userProjectName_controller",
-            "append content":""
+            "append content":"var express = require('express');\r\nvar router = express.Router();\r\nvar userConstructor = require('../models/userConstructor');\r\n",
+            "get":"router.get('/userTarget',function(req, res) {\r\n});",
+            "post":"router.post('/userTarget, function(req, res) {\r\nres.redirect('/');\r\n});",
+            "put":"router.put('/userTarget', function(req, res) {\r\nres.json('/');});"
         },
         {
             "path": "/",
@@ -34,19 +37,19 @@
             "path": "/skeleton/db",
             "type": ".sql",
             "name": "schema",
-            "append content":""
+            "append content":"CREATE DATABASE IF NOT EXISTS user_db;\r\nUSE user_db;\r\nDROP TABLE IF EXISTS userTable;\r\nCREATE TABLE burgers (\r\nid int NOT NULL AUTO_INCREMENT,\r\nUser Variables\r\n PRIMARY KEY (id));"
         },
         {
             "path": "/skeleton/db",
             "type": ".sql",
             "name": "seeds",
-            "append content":""
+            "append content":"INSERT INTO userTable (userVariables, ) VALUES (userInsert, )"
         },
         {
             "path": "/models",
             "type": ".js",
             "name": "userProjectName",
-            "append content":""
+            "append content":"var orm = require('../config/orm');\r\n var userModel = {\r\n\r\n};\r\nmodule.exports = userModel;"
         },
         {
             "path": "/",
@@ -94,7 +97,7 @@
             "path": "/",
             "type": ".js",
             "name": "server",
-            "append content":""
+            "append content":"var express = require('express');\r\nvar bodyParser = require('body-parser');\r\nvar path = require('path');\r\nvar app = express();\r\napp.use(express.static('public'));\r\napp.use(bodyParser.urlencoded({extended: false}));\r\nvar exphbs = require('express-handlebars');\r\napp.engine('handlebars', exphbs({defaultLayout: 'main'}));\r\napp.set('view engine', 'handlebars');\r\nvar routes =require('./controllers/userTargetName_controller');\r\napp.use(routes);\r\nvar PORT = process.env.PORT || 9001;\r\napp.listen(PORT, function() {\r\nconsole.lo('App listening on PORT ' + PORT);});"
         },
         {
             "path": "/",
@@ -118,7 +121,7 @@
             "path": "/views/layouts",
             "type": ".handlebars",
             "name": "main",
-            "append content":""
+            "append content":"<!DOCTYPE html>\r\n<html lang='en'>\r\n<head>\r\n<title>Eat-da-burger</title>\r\n<meta charset='UTF-8'><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css'/>\r\n<link rel='stylesheet' href='/assets/css/style.css' type='text/css' />\r\n</head>\r\n<body>\r\n{{{ body }}}\r\n<script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>\r\n<script src='/assets/js/script.js'></script>\r\n</body>\r\n</HTML>"
         }
     ],
 
@@ -270,5 +273,55 @@
             "\r\n",
         "}",
     "})"
+    ],
+
+    "nodejs":[
+        {
+        "path":"/",
+        "type":".js",
+        "name":"server"
+        }
+    ],
+
+    "js_constructor":[
+        {
+            "this_itterator": "this.",
+            "variable_itterator": " = ",
+            "function_start_itterator":"this.",
+            "function_end_generator":" = function(){\r\n}",
+            "export":"module.exports =  ;"
+        }
+    ],
+
+    "mysql":[
+        {
+            "path": "/",
+            "type": ".sql",
+            "name": "seeds",
+            "db_exists":"DROP DATABASE IF EXISTS ",
+            "db_create":"CREATE DATABASE ",
+            "db_use":"USE ",
+            "db_table": "CREATE TABLE ",
+            "db_table_body":" (\r\nid INT NOT NULL AUTO_INCREMENT,\r\n);",
+            "db_insert":"INSERT INTO",
+            "db_vals":"VALUES ("
+        }
+    ],
+
+    "express":[
+        {
+            "path": "/",
+            "type": ".js",
+            "name": "server",
+            "depens": "var express = require('express');\r\nvar bodyParser = require('body-parser');\r\nvar path = require('path');",
+            "app":"var app = express();\r\nvar PORT = 9001;\r\napp.use(bodyParser.urlencoded({ extended: true }));\r\napp.use(bodyParser.json());",
+            "app.g0":"app.get('/', function(req, res) {\r\nres.sendFile(path.join(__dirname, ));\r\n});",
+            "app.gb":"app.get('/",
+            "app.gb1": "' , function(req,res){\r\n}",
+            "app.p":"app.post('/",
+            "app.p1":"', function(req,res){\r\n\r\nres.json(fill_in_variable)\r\n});",
+            "app.l":"app.listen(PORT, function() {\r\nconsole.log('App listening on PORT ' + PORT);\r\n});"
+        }
     ]
+
 }
