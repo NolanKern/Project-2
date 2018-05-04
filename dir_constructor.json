@@ -1,0 +1,274 @@
+{
+    "seq_constructor": [
+        {
+            "path": "/config",
+            "type": ".js",
+            "name": "connection",
+            "append content": ""
+        },
+        {
+            "path": "/config",
+            "type": ".js",
+            "name": "orm",
+            "append content":""
+        },
+        {
+            "path": "/",
+            "type": "dir",
+            "name": "controllers",
+            "append content": ""
+        },
+        {
+            "path": "/controllers",
+            "type": ".js",
+            "name": "userProjectName_controller",
+            "append content":""
+        },
+        {
+            "path": "/",
+            "type": "dir",
+            "name": "db",
+            "append content": ""
+        },
+        {
+            "path": "/skeleton/db",
+            "type": ".sql",
+            "name": "schema",
+            "append content":""
+        },
+        {
+            "path": "/skeleton/db",
+            "type": ".sql",
+            "name": "seeds",
+            "append content":""
+        },
+        {
+            "path": "/models",
+            "type": ".js",
+            "name": "userProjectName",
+            "append content":""
+        },
+        {
+            "path": "/",
+            "type": "dir",
+            "name": "public",
+            "append content": ""
+        },
+        {
+            "path": "/public",
+            "type": ".html",
+            "name": "test",
+            "append content":""
+        },
+        {
+            "path": "/public",
+            "type": "dir",
+            "name": "assets",
+            "append content": ""
+        },
+        {
+            "path": "/public/assets",
+            "type": "dir",
+            "name": "css",
+            "append content": ""
+        },
+        {
+            "path": "/public/assets/css",
+            "type": ".css",
+            "name": "style",
+            "append content":""
+        },
+        {
+            "path": "/public/assets",
+            "type": "dir",
+            "name": "img",
+            "append content": ""
+        },
+        {
+            "path": "/public/assets",
+            "type": "dir",
+            "name": "js",
+            "append content": ""
+        },
+        {
+            "path": "/",
+            "type": ".js",
+            "name": "server",
+            "append content":""
+        },
+        {
+            "path": "/",
+            "type": "dir",
+            "name": "views",
+            "append content": ""
+        },
+        {
+            "path": "/views",
+            "type": ".handlebars",
+            "name": "index",
+            "append content":""
+        },
+        {
+            "path": "/views",
+            "type": "dir",
+            "name": "layouts",
+            "append content": ""
+        },
+        {
+            "path": "/views/layouts",
+            "type": ".handlebars",
+            "name": "main",
+            "append content":""
+        }
+    ],
+
+    "html_constructor" : [
+        {
+            "path":"/",
+            "type":"dir",
+            "name":"assets",
+            "append content":""
+        },
+        {
+            "path":"/",
+            "type":".html",
+            "name":"index",
+            "append content":""
+        },
+        {
+            "path":"/assets",
+            "type":"dir",
+            "name":"css",
+            "append content":""
+        },
+        {
+            "path":"/assets",
+            "type":"dir",
+            "name":"img",
+            "append content":""
+        },
+        {
+            "path":"/assets",
+            "type":"dir",
+            "name":"js",
+            "append content":""
+        },
+        {
+            "path":"/assets/css",
+            "type":".css",
+            "name":"sytle",
+            "append content":""
+        },
+        {
+            "path":"/assets/css",
+            "type":".css",
+            "name":"reset",
+            "append content":""
+        },
+        {
+            "path":"/assets/js",
+            "type":".js",
+            "name":"app",
+            "append content":""
+        }
+    ],
+
+    "bootstrap3" : [
+        "<!-- Latest compiled and minified CSS -->",
+        "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>",
+        "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css' integrity='sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp' crossorigin='anonymous'>",
+        "<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa' crossorigin='anonymous'></script>"
+    ],
+
+    "bootstrap4" : [
+        "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>",
+        "<script src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous'></script>",
+        "<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous'></script>",
+        "<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous'></script>"
+    ],
+
+    "bulma" : [
+        "<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css'>",
+        "<script defer src='https://use.fontawesome.com/releases/v5.0.7/js/all.js'></script>"
+    ],
+
+    "materialize" : [
+        "<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css'>",
+        "<!-- Compiled and minified JavaScript -->",
+        "<script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js'></script>"
+    ],
+
+    "html_start" : [
+        "<html lang='en'>",
+        "<head>",
+            "<meta charset='UTF-8'>",
+            "<meta name='viewport' content='width=device-width, initial-scale=1.0'>",
+            "<meta http-equiv='X-UA-Compatible' content='ie=edge'>",
+            "<title>Document</title>",
+        "</head>",
+        "<body>",
+        "\r\n",   
+        "</body>",
+        "</html>"
+    ],
+
+    "reset" :   [
+        "html, body, div, span, applet, object, iframe,",
+        "h1, h2, h3, h4, h5, h6, p, blockquote, pre,",
+        "a, abbr, acronym, address, big, cite, code,",
+        "del, dfn, em, img, ins, kbd, q, s, samp,",
+        "small, strike, strong, sub, sup, tt, var,",
+        "b, u, i, center,",
+        "dl, dt, dd, ol, ul, li,",
+        "fieldset, form, label, legend,",
+        "table, caption, tbody, tfoot, thead, tr, th, td,",
+        "article, aside, canvas, details, embed, ",
+        "figure, figcaption, footer, header, hgroup,",
+        "menu, nav, output, ruby, section, summary,",
+        "time, mark, audio, video {",
+            "margin: 0;",
+            "padding: 0;",
+            "border: 0;",
+            "font-size: 100%;",
+            "font: inherit;",
+            "vertical-align: baseline;",
+        "}",
+        "/* HTML5 display-role reset for older browsers */",
+        "article, aside, details, figcaption, figure,",
+        "footer, header, hgroup, menu, nav, section {",
+            "display: block;",
+        "}",
+        "body {",
+            "line-height: 1;",
+        "}",
+        "ol, ul {",
+            "list-style: none;",
+        "}",
+        "blockquote, q {",
+            "quotes: none;",
+        "}",
+        "blockquote:before, blockquote:after,",
+        "q:before, q:after {",
+            "content: '';",
+            "content: none;",
+        "}",
+        "table {",
+            "border-collapse: collapse;",
+            "border-spacing: 0;",
+        "}"
+    ],
+
+    "ajax":[
+    "var url = 'enter search URL here'+ searchTerm;",
+    "$.ajax({",
+        "url: url,",
+        "type: 'GET',",
+        "contentType: 'application/json; charset=utf-8',",
+        "async: false,",
+        "dataType: 'json',",
+        "success: function(data, status, jqXHR) {",
+            "\r\n",
+        "}",
+    "})"
+    ]
+}
