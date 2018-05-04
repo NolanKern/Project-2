@@ -1,7 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster');
 
-#main-container {
-    background-color: white;
+body {
+    background-color: #333333;
+}
 
-    position: relative;
-    bottom: 0;
+
+
+.form-q {
+    font-family: 'lobster';
+}
+
+
+
+.card-panel {
+    display: none;      
+}
+
+.card-panel.showing{
+    display: block;    
 }
