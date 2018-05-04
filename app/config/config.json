@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Aura*6983",
+    "password": "",
     "database": "scaffold_db",
     "host": "localhost",
     "dialect": "mysql"
