@@ -31,14 +31,124 @@
                 <br><br><br><br>
 
                 <div class="col s8 offset-s2">
-                    <div class="card-panel indigo">
+                    <div id="start-card" class="card-panel red">
+                        <div class="row">
+                            <div class="col s12">
+                                <p class="form-q center">Choose a starting point for your project</p>
+                            </div>
+
+                            <div class="col s12">
+                                <form>
+                                    <div class="container">
+                                        <div class="col m6">
+                                            <p>
+                                                <input value="html" name="group1" type="radio" id="html-radio"/>
+                                                <label for="html-radio">Basic HTML</label>
+                                            </p>    
+                                        </div>
+                                        <div class="col m6">
+                                            <p>
+                                                <input value="seq-init" name="group1" type="radio" id="seq-init-radio" />
+                                                <label for="seq-init-radio">Sequelize init</label>
+                                            </p>
+                                        </div>  
+                                        <div class="col m6">
+                                            <p>
+                                                <input value="express" name="group1" type="radio" id="express-init" />
+                                                <label for="express-init">Express</label>
+                                            </p>
+                                        </div>  
+                                        <div class="col m6">
+                                            <p>
+                                                <input value="handlebars" name="group1" type="radio" id="html" />
+                                                <label for="html">Handlebars</label>
+                                            </p>
+                                        </div> 
+                                        <br><br><br><br>
+                                        <div class="col m12 center">
+                                            <button type="button" class="btn waves-effect waves-light" name="action">Next
+                                                <i class="material-icons right">send</i>
+                                            </button>    
+                                        </div>
+
+                                            
+                                    </div>
+
+                                    
+
+                                </form>
+
+
+                            </div>    
+                        </div>
+
+                        
+                
+                    </div>
+                    
+                    <div id="init-card" class="card-panel indigo">
+                        <div class="row">
+                            <div class="col s12">
+                                <p class="form-q center">What would you like to initialize?</p>
+                            </div>
+
+                            <div class="col s12">
+                                <form>
+                                    <div class="container">
+                                        <div class="col m6">
+                                            <p>
+                                                <input type="checkbox" id="config-check" />
+                                                <label for="config-check">Init Config</label>
+                                            </p>    
+                                        </div>
+                                        <div class="col m6">
+                                            <p>
+                                                <input type="checkbox" id="migration-check" />
+                                                <label for="migration-check">Init Migration</label>
+                                            </p>
+                                        </div>  
+                                        <div class="col m6">
+                                            <p>
+                                                <input type="checkbox" id="models-check" />
+                                                <label for="models-check">Init Models</label>
+                                            </p>
+                                        </div>  
+                                        <div class="col m6">
+                                            <p>
+                                                <input type="checkbox" id="seeders-check" />
+                                                <label for="seeders-check">Init Seeders</label>
+                                            </p>
+                                        </div> 
+                                        <br><br><br><br>
+                                        <div class="col m12 center">
+                                            <button type="button" class="btn waves-effect waves-light" name="action">Next
+                                                <i class="material-icons right">send</i>
+                                            </button>    
+                                        </div>
+
+                                           
+                                    </div>
+
+                                    
+
+                                </form>
+
+
+                            </div>    
+                        </div>
+
+                        
+                
+                    </div>
+
+                    <div id="css-card" class="card-panel purple">
                         <div class="row">
                             <div class="col s12">
                                 <p class="form-q center">Which languages will you be using?</p>
                             </div>
 
                             <div class="col s12">
-                                <form action="#">
+                                <form>
                                     <div class="container">
                                         <div class="col m6">
                                             <p>
@@ -66,12 +176,12 @@
                                         </div> 
                                         <br><br><br><br>
                                         <div class="col m12 center">
-                                            <button class="btn waves-effect waves-light" name="action">Next
+                                            <button type="button" class="btn waves-effect waves-light" name="action">Next
                                                 <i class="material-icons right">send</i>
                                             </button>    
                                         </div>
 
-                                           
+                                            
                                     </div>
 
                                     
