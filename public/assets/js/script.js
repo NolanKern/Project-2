@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 $('.carousel.carousel-slider').carousel({fullWidth: true});
 
 $('#submit').on("click", function(){
@@ -11,7 +10,6 @@ $('#submit').on("click", function(){
         console.log(res);
     })
 });
-=======
 var card = 'start';
 
 $('#start-card').addClass('showing');
@@ -56,4 +54,3 @@ function nextQ(x) {
     $('#init-card').addClass('showing');
 }
 
->>>>>>> a009324c292c45facecb1937d00831efd75dd010
