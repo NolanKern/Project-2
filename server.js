@@ -1,9 +1,8 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require("express");
+const bodyParser = require("body-parser");
 const fs = require("fs-extra");
-const child_process = require("child_process");
 // const sequelize = require("sequelize-cli");
-const Sequelize = require('sequelize')
+const Sequelize = require("sequelize");
 
 var app = express();
 var PORT = process.env.PORT || 8080;
@@ -23,7 +22,8 @@ app.use(express.static("public"));
 
 // Routes
 // =============================================================
-
+require("./routes/html-routes.js")(app);
+require("./routes/api-routes.js")(app);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
@@ -32,22 +32,3 @@ db.sequelize.sync({ force: true }).then(function() {
     console.log("App listening on PORT " + PORT);
   });
 });
-
-
-let runSequelize = function() {
-  child_process.exec(
-    "sequelize init",
-    {
-      cwd: "app/build"
-    },
-    function(error, stdout, stderr) {
-      // var stdout = result.stdout;
-      // var stderr = result.stderr;
-      console.log("stdout: ", stdout);
-      console.log("stderr: ", stderr);
-      console.log(error);
-    }
-  );
-};
-
-runSequelize();
