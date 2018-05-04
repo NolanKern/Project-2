@@ -1,6 +1,9 @@
 const express   = require("express");
-const fs        = require('fs-extra');
-const exec      = require('child-process-promise').exec;
+const fs        = require('fs');
+const exec      = require('child_process').exec;
+var EasyZip     = require('easy-zip').EasyZip;
+const path      = require('path');
+const rimraf    = require('rimraf');
 
 const router    = express.Router();
 
@@ -13,68 +16,28 @@ const Op        = Sequelize.Op;
 router.get("/", function(req, res) {
   res.render("index");
 
-//   let htmlContent = "<!DOCTYPE html>\n"+
-// "<html lang='en'>\n"+
-// "<head>\n"+
-// "   <meta charset='UTF-8'>\n"+
-// "   <meta name='viewport' content='width=device-width, initial-scale=1.0'>\n"+
-// "   <meta http-equiv='X-UA-Compatible' content='ie=edge'>\n"+
-// "   <title>Document</title>\n";
-
-// db.htmlSnip.create({
-//   snip_name: "openHtml",
-//   snip_type: "html",
-//   snip_loc: "header",
-//   snip_content: htmlContent
-// }).then(function(results) {
-//   // res.end();
-//   let htmlContent = "</head>\n"+
-// "   <body>\n\n";
-
-// db.htmlSnip.create({
-//   snip_name: "openBody",
-//   snip_type: "html",
-//   snip_loc: "body",
-//   snip_content: htmlContent
-// }).then(function(results) {
-//   // res.end();
-//   let htmlContent = "   </body>\n";
-
-// db.htmlSnip.create({
-//   snip_name: "closeBody",
-//   snip_type: "html",
-//   snip_loc: "end",
-//   snip_content: htmlContent
-// }).then(function(results) {
-//   let htmlContent = "</html>";
-  
-//   db.htmlSnip.create({
-//     snip_name: "closeHtml",
-//     snip_type: "html",
-//     snip_loc: "end",
-//     snip_content: htmlContent
-//   }).then(function(results) {
-//     res.end();
-//   });
-// });
-// });
-// });
-
-
   // createHtml();
   // runCommand();
 });
 
 // Process Post from form
-router.post("/api/scaffold", function(req, res) {
+router.post("/api/user", function(req, res) {
+  let data = {fb_uid: req.body.fb_uid};
 
+  db.user.findOrCreate({
+      where: {fb_uid: req.body.fb_uid},
+    }).then(function(results){
+      console.log(results);
+      let uid = results[0].dataValues.fb_uid;
+
+      console.log(userInfo);
+
+      res.render("userpage");
+  });
 });
 
 
 let createHtml = function(obj){
-  // openLinks: openLinks,
-  // bodyIns: bodyIns,
-  // closingLinks: closingLinks
 
   db.htmlSnip.findAll({}).then(function(results){
     let allSnips = results.map(e => e.get({plain: true}));
@@ -100,26 +63,43 @@ let createHtml = function(obj){
 
 }
 
-let runCommand = function(){
-  exec('')
-    .then(function (result) {
-        var stdout = result.stdout;
-        var stderr = result.stderr;
-        console.log('stdout: ', stdout);
-        console.log('stderr: ', stderr);
-    })
-    .catch(function (err) {
-        console.error('ERROR: ', err);
-    });
-
-}
-
-function search(nameKey, nameValue, myArray){
+let search = function(nameKey, nameValue, myArray){
   for (var i=0; i < myArray.length; i++) {
       if (myArray[i][nameKey] === nameValue) {
           return myArray[i].snip_content;
       }
   }
+}
+
+let zipUp = function(dir, cb){
+  let zip = new EasyZip();
+
+  zip.zipFolder(dir,function(){
+    zip.writeToFile('app/public/assets/deliverable/folderall.zip', function(){
+      console.log("ZIPPED!");
+      cb(dir);
+    });
+  });
+}
+
+let runCommand = function(command){
+  if (!fs.existsSync('app/build/')){
+    fs.mkdirSync('app/build/');
+  }
+  exec(command, {
+    cwd: '\app/build'
+  },function(error, stdout, stderr) {
+    // var stdout = result.stdout;
+    // var stderr = result.stderr;
+    console.log('stdout: ', stdout);
+    console.log('stderr: ', stderr);
+    console.log(error);
+    zipUp('app/build/', function(dir){
+      rimraf(dir, function (){
+        console.log('done');
+      });
+    });
+  });
 }
 
 // Export routes for server.js to use.

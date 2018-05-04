@@ -1,60 +1,82 @@
-// Make sure we wait to attach our handlers until the DOM is fully loaded.
-$(function() {
+(function(){
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAFqpX9PhNVTyGMKTxeTtH16p1aceZYu3E",
+    authDomain: "skeletor-6bdaa.firebaseapp.com",
+    databaseURL: "https://skeletor-6bdaa.firebaseio.com",
+    projectId: "skeletor-6bdaa",
+    storageBucket: "skeletor-6bdaa.appspot.com",
+    messagingSenderId: "578425950603"
+  };
+  firebase.initializeApp(config);
 
-    // ## THESE NEED TO BE CHANGED TO BURGER BUTTONS ##
+  // Get input elements
+  const userEmail   = $("#userEmail");
+  const userPswd    = $("#userPswd");
 
-    // ## Change state of item ##
-    $(".vote-for").on("click", function(event) {
-      var id = $(this).data("id");
-      
-      // Send the PUT request.
-      $.ajax("/api/burgers/" + id, {
-        type: "PUT"
-      }).then(
-        function() {
-          // Reload the page to get the updated list
-          location.reload();
-        }
-      );
-    });
-    
-    // ## Create new burger ##
-    $(".create-form").on("submit", function(event) {
-      // Make sure to preventDefault on a submit event.
-      event.preventDefault();
+  // get button elements
+  const btnLogin    = $("#btnLogin");
+  const btnSignUp   = $("#btnSignUp");
+  const btnLogout   = $("#btnLogout");
 
-      var newBurger = {
-        burger_name: $("#burg").val().trim(),
-        user: $("#user").val().trim()
+  // listeners
+  btnLogin.click(e => {
+    const email     = userEmail.val();
+    const pass      = userPswd.val();
+    const auth      = firebase.auth();
+
+    const promise   = auth.signInWithEmailAndPassword(email, pass);
+    promise.then(firebaseUser => {
+
+      let user = {
+        fb_uid: firebaseUser.uid
       };
-  
-      // Send the POST request.
-      $.ajax("/api/burgers", {
-        type: "POST",
-        data: newBurger
-      }).then(
-        function() {
-          console.log("created new burger");
-          // Reload the page to get the updated list
-          location.reload();
-        }
-      );
-    });
-    
-    // ## Remove burger ##
-    $(".delete-burger").on("click", function(event) {
-      var id = $(this).data("id");
 
-      // Send the DELETE request.
-      $.ajax("/api/burgers/" + id, {
-        type: "DELETE"
+      $.ajax("/api/user", {
+        type: "POST",
+        data: user
       }).then(
         function() {
-          console.log("deleted burger", id);
-          // Reload the page to get the updated list
-          location.reload();
+
+          console.log("Logged in a user");
         }
       );
     });
   });
-  
+
+  btnSignUp.click(e => {
+    const email     = userEmail.val();
+    const pass      = userPswd.val();
+    const auth      = firebase.auth();
+
+    const promise   = auth.createUserWithEmailAndPassword(email, pass);
+    promise.then(firebaseUser => {
+
+      let user = {
+        fb_uid: firebaseUser.uid
+      };
+
+      $.ajax("/api/user", {
+        type: "POST",
+        data: user
+      }).then(
+        function() {
+
+          console.log("Made a new user");
+        }
+      );
+    });
+  });
+
+  btnLogout.click(e => {
+    firebase.auth().signOut();
+  });
+
+  firebase.auth().onAuthStateChanged(firebaseUser => {
+    if(firebaseUser){
+      console.log(firebaseUser);
+    } else {
+      console.log('not logged in');
+    }
+  });
+}());
