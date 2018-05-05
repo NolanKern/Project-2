@@ -5,6 +5,8 @@ const rimraf = require("rimraf");
 
 module.exports = function(app) {
   app.post("/seqinit", function(req, res) {
+    console.log(res.body);
+    
     var build = runCommand("sequelize init");
     console.log("new skelet generated");
     res.send(build);

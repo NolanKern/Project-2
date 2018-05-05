@@ -3,13 +3,15 @@ $(".carousel.carousel-slider").carousel({ fullWidth: true });
 $("#initialize").on("submit", function(e) {
   e.preventDefault();
   
-  var arr = [];
+  var arr = {
+      initz: []
+  };
 
   $(this)
     .find(":checkbox:checked")
     .each(function(index, val) {
       var box = val.defaultValue;
-      arr.push(box);
+      arr.initz.push(box);
     });
 
   console.log(arr);
