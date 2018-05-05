@@ -1,7 +1,6 @@
 const exec = require("child_process").exec;
 const fs = require("fs");
-var EasyZip = require("easy-zip").EasyZip;
-const path = require("path");
+const EasyZip = require("easy-zip").EasyZip;
 const rimraf = require("rimraf");
 
 module.exports = function(app) {
