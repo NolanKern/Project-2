@@ -4,19 +4,22 @@
             "path": "/config",
             "type": ".js",
             "name": "connection",
-            "append content": "var mysql = require('mysql');\r\nvar connection = mysql.createConnection({\r\nhost: 'localhost',\r\nuser: 'root',\r\npassword: '',\r\ndatabase: '',\r\n});\r\nconnection.connect(function(err) {\r\n if(err) throw err;\r\nconsole.log('connected as id ' + connection.threadId);\r\n});\r\nmodule.exports = connection;"
+            "append content": "var mysql = require('mysql');\r\nvar connection = mysql.createConnection({\r\nhost: 'localhost',\r\nuser: 'root',\r\npassword: '',\r\ndatabase: '',\r\n});\r\nconnection.connect(function(err) {\r\n if(err) throw err;\r\nconsole.log('connected as id ' + connection.threadId);\r\n});\r\nmodule.exports = connection;",
+            "functionpkg":"nondir"
         },
         {
             "path": "/config",
             "type": ".js",
             "name": "orm",
-            "append content":"var connection = require('./connection');\r\nvar orm = {\r\n\r\n};\r\nmodule.exports = orm;"
+            "append content":"var connection = require('./connection');\r\nvar orm = {\r\n\r\n};\r\nmodule.exports = orm;",
+            "functionpkg":"nondir"
         },
         {
             "path": "/",
             "type": "dir",
             "name": "controllers",
-            "append content": ""
+            "append content": "",
+            "functionpkg":"dir"
         },
         {
             "path": "/controllers",
@@ -25,103 +28,120 @@
             "append content":"var express = require('express');\r\nvar router = express.Router();\r\nvar userConstructor = require('../models/userConstructor');\r\n",
             "get":"router.get('/userTarget',function(req, res) {\r\n});",
             "post":"router.post('/userTarget, function(req, res) {\r\nres.redirect('/');\r\n});",
-            "put":"router.put('/userTarget', function(req, res) {\r\nres.json('/');});"
+            "put":"router.put('/userTarget', function(req, res) {\r\nres.json('/');});",
+            "functionpkg":"nondir"
         },
         {
             "path": "/",
             "type": "dir",
             "name": "db",
-            "append content": ""
+            "append content": "",
+            "functionpkg":"dir"
         },
         {
             "path": "/skeleton/db",
             "type": ".sql",
             "name": "schema",
-            "append content":"CREATE DATABASE IF NOT EXISTS user_db;\r\nUSE user_db;\r\nDROP TABLE IF EXISTS userTable;\r\nCREATE TABLE burgers (\r\nid int NOT NULL AUTO_INCREMENT,\r\nUser Variables\r\n PRIMARY KEY (id));"
+            "append content":"CREATE DATABASE IF NOT EXISTS user_db;\r\nUSE user_db;\r\nDROP TABLE IF EXISTS userTable;\r\nCREATE TABLE burgers (\r\nid int NOT NULL AUTO_INCREMENT,\r\nUser Variables\r\n PRIMARY KEY (id));",
+            "functionpkg":"nondir"
         },
         {
             "path": "/skeleton/db",
             "type": ".sql",
             "name": "seeds",
-            "append content":"INSERT INTO userTable (userVariables, ) VALUES (userInsert, )"
+            "append content":"INSERT INTO userTable (userVariables, ) VALUES (userInsert, )",
+            "functionpkg":"nondir"
         },
         {
             "path": "/models",
             "type": ".js",
             "name": "userProjectName",
-            "append content":"var orm = require('../config/orm');\r\n var userModel = {\r\n\r\n};\r\nmodule.exports = userModel;"
+            "append content":"var orm = require('../config/orm');\r\n var userModel = {\r\n\r\n};\r\nmodule.exports = userModel;",
+            "functionpkg":"nondir"
         },
         {
             "path": "/",
             "type": "dir",
             "name": "public",
-            "append content": ""
+            "append content": "",
+            "functionpkg":"dir"
         },
         {
             "path": "/public",
             "type": ".html",
             "name": "test",
-            "append content":""
+            "append content":"",
+            "functionpkg":"dir"
         },
         {
             "path": "/public",
             "type": "dir",
             "name": "assets",
-            "append content": ""
+            "append content": "",
+            "functionpkg":"dir"
         },
         {
             "path": "/public/assets",
             "type": "dir",
             "name": "css",
-            "append content": ""
+            "append content": "",
+            "functionpkg":"dir"
         },
         {
             "path": "/public/assets/css",
             "type": ".css",
             "name": "style",
-            "append content":""
+            "append content":"",
+            "functionpkg":"dir"
         },
         {
             "path": "/public/assets",
             "type": "dir",
             "name": "img",
-            "append content": ""
+            "append content": "",
+            "functionpkg":"dir"
         },
         {
             "path": "/public/assets",
             "type": "dir",
             "name": "js",
-            "append content": ""
+            "append content": "",
+            "functionpkg":"dir"
         },
         {
             "path": "/",
             "type": ".js",
             "name": "server",
-            "append content":"var express = require('express');\r\nvar bodyParser = require('body-parser');\r\nvar path = require('path');\r\nvar app = express();\r\napp.use(express.static('public'));\r\napp.use(bodyParser.urlencoded({extended: false}));\r\nvar exphbs = require('express-handlebars');\r\napp.engine('handlebars', exphbs({defaultLayout: 'main'}));\r\napp.set('view engine', 'handlebars');\r\nvar routes =require('./controllers/userTargetName_controller');\r\napp.use(routes);\r\nvar PORT = process.env.PORT || 9001;\r\napp.listen(PORT, function() {\r\nconsole.lo('App listening on PORT ' + PORT);});"
+            "append content":"var express = require('express');\r\nvar bodyParser = require('body-parser');\r\nvar path = require('path');\r\nvar app = express();\r\napp.use(express.static('public'));\r\napp.use(bodyParser.urlencoded({extended: false}));\r\nvar exphbs = require('express-handlebars');\r\napp.engine('handlebars', exphbs({defaultLayout: 'main'}));\r\napp.set('view engine', 'handlebars');\r\nvar routes =require('./controllers/userTargetName_controller');\r\napp.use(routes);\r\nvar PORT = process.env.PORT || 9001;\r\napp.listen(PORT, function() {\r\nconsole.lo('App listening on PORT ' + PORT);});",
+            "functionpkg":"nondir"
         },
         {
             "path": "/",
             "type": "dir",
             "name": "views",
-            "append content": ""
+            "append content": "",
+            "functionpkg":"dir"
         },
         {
             "path": "/views",
             "type": ".handlebars",
             "name": "index",
-            "append content":""
+            "append content":"",
+            "functionpkg":"dir"
         },
         {
             "path": "/views",
             "type": "dir",
             "name": "layouts",
-            "append content": ""
+            "append content": "",
+            "functionpkg":"dir"
         },
         {
             "path": "/views/layouts",
             "type": ".handlebars",
             "name": "main",
-            "append content":"<!DOCTYPE html>\r\n<html lang='en'>\r\n<head>\r\n<title>Eat-da-burger</title>\r\n<meta charset='UTF-8'><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css'/>\r\n<link rel='stylesheet' href='/assets/css/style.css' type='text/css' />\r\n</head>\r\n<body>\r\n{{{ body }}}\r\n<script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>\r\n<script src='/assets/js/script.js'></script>\r\n</body>\r\n</HTML>"
+            "append content":"<!DOCTYPE html>\r\n<html lang='en'>\r\n<head>\r\n<title>Eat-da-burger</title>\r\n<meta charset='UTF-8'><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css'/>\r\n<link rel='stylesheet' href='/assets/css/style.css' type='text/css' />\r\n</head>\r\n<body>\r\n{{{ body }}}\r\n<script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>\r\n<script src='/assets/js/script.js'></script>\r\n</body>\r\n</HTML>",
+            "functionpkg":"dir"
         }
     ],
 
@@ -130,49 +150,57 @@
             "path":"/",
             "type":"dir",
             "name":"assets",
-            "append content":""
+            "append content":"",
+            "functionpkg":"dir"
         },
         {
             "path":"/",
             "type":".html",
             "name":"index",
-            "append content":""
+            "append content":"",
+            "functionpkg":"nondir"
         },
         {
             "path":"/assets",
             "type":"dir",
             "name":"css",
-            "append content":""
+            "append content":"",
+            "functionpkg":"dir"
         },
         {
             "path":"/assets",
             "type":"dir",
             "name":"img",
-            "append content":""
+            "append content":"",
+            "functionpkg":"dir"
         },
         {
             "path":"/assets",
             "type":"dir",
             "name":"js",
-            "append content":""
+            "append content":"",
+            "functionpkg":"dir"
         },
         {
             "path":"/assets/css",
             "type":".css",
             "name":"sytle",
-            "append content":""
+            "append content":"",
+            "functionpkg":"nondir"
         },
         {
             "path":"/assets/css",
             "type":".css",
             "name":"reset",
-            "append content":""
+            "append content":"",
+            "functionpkg":"nondir"
         },
         {
             "path":"/assets/js",
             "type":".js",
             "name":"app",
-            "append content":""
+            "append content":"",
+            "functionpkg":"nondir"
         }
     ],
 
