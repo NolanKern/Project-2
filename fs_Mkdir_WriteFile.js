@@ -1,294 +1,156 @@
-var fsArray = [];
+var dir_constructor  = require("dir_constructor.json");
+var fs = require("fs");
+// require post request array here
 
-// Switch Statement logic for each element of the user entered data
-function pushArray(val){
-    switch(val){
-        case "HTML":
-            fsArray.push("HTML");
+
+
+for(i=0;i<arr.length;i++){
+    switch(arr[i]){
+        // 
+        case seq_constructor:
+            confPkgProcess(dir_constructor[0],cb);
+            console.log("seq_constructor done")
         break;
-
-        case "css":
-            fsArray.push("css");
+        // 
+        case html_constructor:
+            confPkgProcess(dir_constructor[1],cb);
+            console.log("html_constructor done");
         break;
+        // 
+        case bootstrap3:
 
-        case "javascript":
-            fsArray.push("javascript");
+
+
+
+            // need help finding location file where this belongs
+            code_insert("location", dir_constructor[2]);
         break;
-
-        case "node":
-            fsArray.push("node");
+        // 
+        case bootstrap4:
+            code_insert("location", dir_constructor[3]);
+        break
+        // 
+        case bulma:
+            code_insert("location", dir_constructor[4]);
         break;
-
-        case "JS-Constructor":
-            fsArray.push("js-constructor");
+        // 
+        case materialize:
+            code_insert("location", dir_constructor[5]);
         break;
-
-        case "MySQL":
-            fsArray.push("mysql");
+        // 
+        case html_start:
+            // needs help finding correct location
+            non2NotDir(dir_constructor[6],index.html,"location");
         break;
-
-        case "Express":
-            fsArray.push("express");
+        // 
+        case reset:
+            non2NotDir(dir_constructor[7],index.html,"location");   
         break;
-
-        case "Handlebars":
-            fsArray.push("handlebars");
+        // 
+        case ajax:
+            code_insert("location", dir_constructor[8]);
         break;
-
-        case "Sequelize":
-            fsArray.push("sequelize");
+        // 
+        case nodejs:
+            confPkgProcess(dir_constructor[1],cb);
         break;
+        // 
+        case js_constructor:
 
-        // case "HTML":
-        // fsArray.push("HTML");
-        // break;
-
-        // case "HTML":
-        // fsArray.push("HTML");
-        // break;
-
-        // case "HTML":
-        // fsArray.push("HTML");
-        // break;
-
-        // case "HTML":
-        // fsArray.push("HTML");
-        // break;
-
-        // case "HTML":
-        // fsArray.push("HTML");
-        // break;
-        default:
-            return;
         break;
-    } 
+        // 
+        case mysql:
+
+        break;
+        // 
+        case express:
+
+        break;
+    }
 }
 
-const asyncForEach = (array, callback) => {
-  for (let index = 0; index < array.length; index++) {
-    await callback(array[index], index, array);
+
+function confPkgProcess (confpkg, cb) {
+    processedPackage = cb(confpkg.data)
+    console.log(processedPackage)
   }
+  
+  // handling js packages
+  function nondir (arr) {
+  
+      fs.writeFile(arr[0]+arr[2]+arr[1], arr[3], function(err){
+          if (err) throw err;
+      });
+  
+    return 'success'
+  }
+  
+  // handling json packages
+  function dir (arr) {
+  
+      fs.mkdir(arr[0]+arr[2], function(err){
+          if(err) throw err;
+          console.log("made directory");
+      });
+  
+    return 'success'
 }
-
-const start = async () => {
-  await asyncForEach(userAnswers, async (num) => {
-  });
-  await asynchCreateDocs(fsArray);
+  
+function non2dir(arr, name, location){
+    fs.mkdir(location+name, function(err){
+        if(err) throw err;
+    });
 }
-
-
-const asynchCreateDocs = async() => {
-    if(fsArray.indexOf("sequelize")>-1){
-
-    }
-    else if(fsArray.indexOf("handlebars")>-1){
-
-    }
-    else if(fsArray.indexOf("express")>-1){
-
-    }
-    else if(fsArray.indexOf("mysql")>-1){
-
-    }
-    else if(fsArray.indexOf("js-constructor")>-1){
-
-    }
-    else if(fsArray.indexOf("node")>-1){
-
-    }
-    else if(fsArray.indexOf("javascript")>-1){
-
-    }
-    else if(fsArray.indexOf("html")>-1){
-
-    }
-    else{
-        console.log("A problem has occured!!!!!!!!");
-        console.log("I am here at line 110");
-    }
-}
-
-async function buildDir(){
-    try {
-        // Do not start the rest of the skeleton creation until main directory is created
-        await fs.mkdir('skeleton',(err)=>{
-            if(err) throw err;
-        });
-        
-        // in main create main server file
-        fs.writeFile("/skeleton/server.js", (err)=>{
-            if(err) throw err;
-            console.log("seq() Line 118 worked");
-        })
-        .then(()=>{
-            // appendFile here
-        })
-
-
-        // fs.appendFile("server.js", '\r\n var express = require("express");'
-        // +'var bodyParser = require("body-parser");'+'var path = require("path");'+
-        // 'var app = express();'+ 'app.use(express.static("public"));')
-        
-        // config dir holds files: connection.js and orm.js
-        fs.mkdir('/skeleton/config', (err) =>{
-            if(err) throw err;
-        }).then(()=>{
-            // connection.js
-            fs.writeFile('/skeleton/config/connection.js', (err) => {
-                if(err) throw err;
-            })
-            .then(()=>{
-                // appendFile here
-            })
-
-            // orm.js
-            fs.writeFile('/skeleton/config/orm.js', (err) => {
-                if(err) throw err;
-            })
-            .then(()=>{
-                // appendFile here
-            })
-        })
-
-        // Controllers dir contains: userProjectName_controller.js
-        fs.mkdir('/skeleton/controllers', (err) =>{
-            if(err) throw err;
-        })
-        .then(()=>{
-            // create file for controlling the flow of the table
-            fs.writeFile('/skeleton/controllers/'+userProjectName+'_controller.js',(err)=>{
-                if(err) throw err;
-            })
-            .then(()=>{
-                // appendFile here
-            })
-        })
-
-        // db dir contains sql files: schema.sql and seeds.sql
-        fs.mkdir('/skeleton/db', (err) =>{
-            if(err) throw err;
-        }).then(()=>{
-            // create and edit schema skeleton
-            fs.writeFile('/skeleton/db/schema.sql', (err)=>{
-                if(err) throw err;
-            }).then(()=>{
-                // appendFile Here
-            })
-
-            // create seeds.sql
-            fs.writeFile('/skeleton/db/seeds.sql', (err)=>{
-                if(err) throw err;
-            }).then(()=>{
-                // appendFile here
-            })
-        })
-
-        // models dir contains model for project i.e userProjectName.js
-        fs.mkdir('/skeleton/models', (err) =>{
-            if(err) throw err;
-        }).then(()=>{
-            // creates model script
-            fs.writeFile('/skeleton/models/'+userProjectName+'.js', (err)=>{
-                if(err) throw err;
-            }).then(()=>{
-                // appendFile here
-            })
-        })
-
-        // Public dir contains assets/css && assets/img && assets/js && test.html file
-        fs.mkdir('/skeleton/public', (err) =>{
-            if(err) throw err;
-            // create file for test page
-            fs.writeFile('/skeleton/public/test.html', (err)=>{
-                if(err) throw err;
-            });
-            fs.mkdir('/skeleton/public/assets', (err)=>{
-                if(err) throw err;
-            }); 
-        }).then(()=>{
-                fs.mkdir('/skeleton/public/assets/css', (err)=>{
-                    if(err) throw err;
-                    })
-                    // create style.css page
-                    .then(()=>{
-                    fs.writeFile('/skeleton/public/assets/css/style.css', (err)=>{
-                        if(err) throw err;
-                    })
-                })
-
-                // create folder for popul
-                fs.mkdir('/skeleton/public/assets/img', (err)=>{
-                    if(err) throw err;  
-                });
-
-                fs.mkdir('/skeleton/public/assets/js', (err)=>{
-                    if(err) throw err;
-                    
-                })
-                .then(()=>{
-                    fs.writeFile('/skeleton/public/assets/js/app.js', (err)=>{
-                        if(err) throw err;
-                })
-                .then(()=>{
-                    // appendFile here
-                })
-            })
-        });
-
-        fs.mkdir('/skeleton/views', (err) =>{
-            if(err) throw err;
-        }).then(()=>{
-            fs.writeFile('/skeleton/views/index.handlebars', (err)=>{
-                if(err) throw err;
-            }).then(()=>{
-                // appendFile here
-            })
-
-            fs.mkdir('/skeleton/views/layouts', (err)=>{
-            if(err) throw err;
-            }).then(()=>{
-                fs.writeFile('/skeleton/views/layouts/main.handlebars', (err)=>{
-                    if(err) throw err;
-                }).then(()=>{
-                    // appendFile here
-                })
-            })
-        })
-    } catch{
+function non2NotDir (arr, name, location){
+    fs.writeFile(location + name, arr, function(err){
         if (err) throw err;
-    }
+    });
 }
 
+function code_insert(location,arr){
+    fs.appendFile(location, arr, function(err){
+        if (err) throw err;
+    })
+}
 
+function multiLineBuilder(location, arr, itterations, name){
+    switch(name){
+        case js_constructor:
+            for(let i=0;i<itterations;i++){
+                for(let j=0;j<arr.length-1;j++){
+                    fs.appendFile(location,arr[j], function (err){
+                        if (err) throw err;
+                    });
+                }
+            }
+            fs.appendFile(location,arr[arr.length-1], function (err){
+                if (err) throw err;
+            });
+        break;
 
+        case mysql:
+            fs.writeFile(arr[0]+arr[2]+arr[1], "", function (err){
+                if (err) throw err;
+            })
+            for(let i=3;i<arr.length;i++){
+                fs.appendFile(arr[0]+arr[2]+arr[1], arr[i], function (err){
+                    if (err) throw err;
+                })
+            }
+        break;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-start();
+        case express:
+        fs.writeFile(arr[0]+arr[2]+arr[1], arr[3]+arr[4]+arr[5], function (err){
+            if (err) throw err;
+        })
+        for(let i=0;i<itterations;i++){
+            for(let j=6;j<arr.length-1;j++){
+                fs.appendFile(arr[0]+arr[2]+arr[1],arr[j], function(err){
+                    if (err) throw err;
+                })
+            }
+        }
+        break;
+    }
+    
+}
