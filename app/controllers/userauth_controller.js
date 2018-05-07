@@ -27,8 +27,20 @@ router.get('/signin', function(req, res){
     res.render('signin');
 });
 
+/* Handle Logout */
+router.get('/signout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
+
 router.post('/login',
     passport.authenticate('local', { failureRedirect: '/signin' }),
+    function(req, res) {
+    res.redirect('/');
+});
+
+router.post('/signup',
+    passport.authenticate('signup', { failureRedirect: '/signin' }),
     function(req, res) {
     res.redirect('/');
 });
@@ -76,10 +88,38 @@ function(req, username, password, done) {
             console.log("SUCCESS");
             // console.log(user);
             return done(null, user);
-        });    
+        }); 
 
     });
 
+}));
+
+passport.use('signup', new LocalStrategy({
+    passReqToCallback : true
+  },
+  function(req, username, password, done) {
+    findOrCreateUser = function(){
+        db.user.findOne({where: {username: username}}).then(function(results) {
+            
+            let user = JSON.parse(JSON.stringify(results));
+
+            if(user){
+                console.log('User already exists');
+                return done(null, false); 
+            } else {
+                db.user.create({
+                    username: username,
+                    password: password
+                }).then(function(results){
+                    let user = JSON.parse(JSON.stringify(results));
+                    console.log("THE CREATED USER " + user);
+                    return done(null, user);
+                });
+            }
+        });   
+    }
+
+    process.nextTick(findOrCreateUser);
 }));
 
 
@@ -89,38 +129,38 @@ let search = function(nameKey, nameValue, myArray){
             return myArray[i].snip_content;
         }
     }
-  }
+}
   
-  let zipUp = function(dir, cb){
+let zipUp = function(dir, cb){
     let zip = new EasyZip();
-  
+
     zip.zipFolder(dir,function(){
-      zip.writeToFile('app/public/assets/deliverables/folderall.zip', function(){
+        zip.writeToFile('app/public/assets/deliverables/folderall.zip', function(){
         console.log("ZIPPED!");
         cb(dir);
-      });
+        });
     });
-  }
+}
   
-  let runCommand = function(command){
+let runCommand = function(command){
     if (!fs.existsSync('app/build/')){
-      fs.mkdirSync('app/build/');
+        fs.mkdirSync('app/build/');
     }
     exec(command, {
-      cwd: '\app/build'
+        cwd: '\app/build'
     },function(error, stdout, stderr) {
-      // var stdout = result.stdout;
-      // var stderr = result.stderr;
-      console.log('stdout: ', stdout);
-      console.log('stderr: ', stderr);
-      console.log(error);
-      zipUp('app/build/', function(dir){
+        // var stdout = result.stdout;
+        // var stderr = result.stderr;
+        console.log('stdout: ', stdout);
+        console.log('stderr: ', stderr);
+        console.log(error);
+        zipUp('app/build/', function(dir){
         rimraf(dir, function (){
-          console.log('done');
+            console.log('done');
         });
-      });
+        });
     });
-  }
+}
 
 // Export routes for server.js to use.
 module.exports      = router;
