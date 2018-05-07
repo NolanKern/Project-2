@@ -5,15 +5,33 @@ const rimraf = require("rimraf");
 
 module.exports = function(app) {
   app.post("/seqinit", function(req, res) {
-    console.log(res.body);
+    var plug = [];
     
-    var build = runCommand("sequelize init");
+    req.body.initz.forEach(function(elem){
+      console.log(elem);
+      var pie = elem.search("-");
+      var string = elem.slice(0, pie);
+      plug.push(string);
+    })
+
+    
+
+    var sequel = "sequelize ";
+
+    plug.forEach(function(elem){
+      var build = "init:";
+      var both = build.concat(elem + " ");
+      console.log(both);
+      sequel += both;
+    });
+
+    console.log(sequel); 
+
+    var run = runCommand(sequel);
     console.log("new skelet generated");
-    res.send(build);
+    res.send(run);
   });
 };
-
-
 
 let zipUp = function(dir, cb) {
   let zip = new EasyZip();
