@@ -1,4 +1,11 @@
-const btnSeq    = $("#btnSeq");
+const btnSeq        = $("#btnSeq");
+const dwnldBtn      = $("#dwnldBtn");
+
+dwnldBtn.click(e => {
+    e.preventDefault();  //stop the browser from following
+
+    window.location.href = '/assets/deliverables/folderall.zip';
+});
 
 btnSeq.click(e => {
     let cmdStr = "sequelize init";
@@ -33,8 +40,10 @@ btnSeq.click(e => {
     type: "POST",
     data: command
     }).then(
-    function() {
+    function(data) {
         console.log("Success");
+        console.log("RETURNED DATA " + data);
+        window.location = data.redirect;
     }
     );
 

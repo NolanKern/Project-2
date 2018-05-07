@@ -33,6 +33,12 @@ router.get('/signout', function(req, res) {
     res.redirect('/');
 });
 
+router.get('/dl', function(req, res) {
+    // let file = path.join(__dirname, '../public/assets/deliverables/folderall.zip');
+    // res.download(file, 'structure.zip');
+    res.render('dl', {user: req.user});
+});
+
 router.post('/login',
     passport.authenticate('local', { failureRedirect: '/signin' }),
     function(req, res) {
@@ -47,9 +53,10 @@ router.post('/signup',
 
 router.post('/api/runCmd', function(req, res){
     let cmdStr = req.body.cmdStr;
-    
-    runCommand(cmdStr);
 
+    runCommand(cmdStr).then(function(value){
+        res.send({redirect: '/dl'});
+    });
 });
  
 passport.serializeUser(function(user, cb) {
@@ -141,23 +148,27 @@ let zipUp = function(dir, cb){
         });
     });
 }
-  
-let runCommand = function(command){
-    if (!fs.existsSync('app/build/')){
-        fs.mkdirSync('app/build/');
-    }
-    exec(command, {
-        cwd: '\app/build'
-    },function(error, stdout, stderr) {
-        // var stdout = result.stdout;
-        // var stderr = result.stderr;
-        console.log('stdout: ', stdout);
-        console.log('stderr: ', stderr);
-        console.log(error);
-        zipUp('app/build/', function(dir){
-        rimraf(dir, function (){
-            console.log('done');
-        });
+
+let runCommand = function(command) {
+    return new Promise(function(resolve, reject) {
+
+        if (!fs.existsSync('app/build/')){
+            fs.mkdirSync('app/build/');
+        }
+        exec(command, {
+            cwd: '\app/build'
+        },function(error, stdout, stderr) {
+            // var stdout = result.stdout;
+            // var stderr = result.stderr;
+            console.log('stdout: ', stdout);
+            console.log('stderr: ', stderr);
+            console.log(error);
+            zipUp('app/build/', function(dir){
+                rimraf(dir, function (){
+                    console.log('done');
+                    resolve("Success");
+                });
+            });
         });
     });
 }
