@@ -5,21 +5,16 @@ module.exports = function(sequelize, DataTypes){
         autoIncrement: true,
         primaryKey: true
     },
-    fb_uid: {
+    username: {
+        type: DataTypes.STRING
+    },
+    password: {
         type: DataTypes.STRING
     }
     }, {
     timestamps: true
     });
 
-    // Burger.associate = function (models) {
-    //     models.burger.belongsTo(models.user, {
-    //       onDelete: "CASCADE",
-    //       foreignKey: {
-    //         allowNull: false
-    //       }
-    //     });
-    //   };
 
     return user;
 }

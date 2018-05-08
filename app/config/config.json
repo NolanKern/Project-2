@@ -14,10 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "",
+    "username": "root",
     "password": "",
-    "database": "",
-    "host": "",
+    "database": "userAuth_db",
+    "host": "localhost",
     "dialect": "mysql"
   }
 }

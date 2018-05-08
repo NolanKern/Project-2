@@ -17,8 +17,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
 
-// Static directory
-app.use(express.static("public"));
+// Set Handlebars.
+const exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+// Import routes and give the server access to them.
+var routes = require("./app/controllers/userauth_controller.js");
+
+// Set up Passport
+const passport = require('passport');
+const expressSession = require('express-session');
+app.use(expressSession({secret: 'thisisasupersecretkey'}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
 // =============================================================
