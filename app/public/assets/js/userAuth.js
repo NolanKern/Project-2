@@ -9,7 +9,6 @@ dwnldBtn.click(e => {
 
 btnSeq.click(e => {
     let cmdStr = "sequelize init";
-    
 
     if ($('#check1').is(":checked"))
     {
