@@ -40,8 +40,7 @@ router.get('/dl', function(req, res) {
 });
 
 router.get('/get-file', function(req, res){
-
-    let file = path.join(__dirname, '../public/assets/deliverables/' + req.user.username + '/structure.zip');
+    let file = path.join(__dirname, '../build/' + req.user.username + '/deliverables/structure.zip');
     res.download(file);
 });
 
@@ -159,9 +158,9 @@ let zipUp = function(dir, folderName, cb){
     let zip = new EasyZip();
     
     zip.zipFolder(dir, function(){
-        console.log("THIS IS INSIDE ZIPUP " + folderName);
-        let zipSave = 'app/public/assets/deliverables/' + folderName + '/structure.zip';
-        console.log(zipSave);
+
+        let zipSave = 'app/build/' + folderName + '/deliverables/structure.zip';
+
         zip.writeToFile(zipSave, function(){
         console.log("ZIPPED!");
         cb(dir);
@@ -172,15 +171,19 @@ let zipUp = function(dir, folderName, cb){
 let runCommand = function(command, folderName) {
     return new Promise(function(resolve, reject) {
 
-        if (!fs.existsSync('app/build/'+folderName+'/')){
-            fs.mkdirSync('app/build/'+folderName+'/');
+        if (!fs.existsSync('app/build/' + folderName + '/')){
+            fs.mkdirSync('app/build/' + folderName + '/');
         }
 
-        if (!fs.existsSync('app/public/assets/deliverables/'+folderName+'/')){
-            fs.mkdirSync('app/public/assets/deliverables/'+folderName+'/');
+        if (!fs.existsSync('app/build/' + folderName + '/temp/')){
+            fs.mkdirSync('app/build/' + folderName + '/temp/');
         }
 
-        let currentWD = '\app/build/' + folderName;
+        if (!fs.existsSync('app/build/' + folderName + '/deliverables/')){
+            fs.mkdirSync('app/build/' + folderName + '/deliverables/');
+        }
+
+        let currentWD = '\app/build/' + folderName + '/temp/';
 
         exec(command, {cwd: currentWD})
             .then(function (result) {
@@ -188,8 +191,8 @@ let runCommand = function(command, folderName) {
                 var stderr = result.stderr;
                 console.log('stdout: ', stdout);
                 console.log('stderr: ', stderr);
-                console.log("THIS IS BEFORE ZIPUP " + folderName);
-                zipUp('app/build/'+folderName, folderName, function(dir){
+
+                zipUp('app/build/' + folderName + '/temp', folderName, function(dir){
                     rimraf(dir, function (){
                         console.log('done');
                         resolve("Success");
