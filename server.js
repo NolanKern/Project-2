@@ -8,7 +8,7 @@ var app = express();
 var PORT = process.env.PORT || 8080;
 
 // Requiring our models for syncing
-var db = require("./models");
+var db = require("./app/models");
 
 // Sets up the Express app to handle data parsing
 
@@ -16,6 +16,9 @@ var db = require("./models");
 app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
+
+// static directory
+app.use(express.static("app/public"));
 
 // Set Handlebars.
 const exphbs = require("express-handlebars");
@@ -33,10 +36,11 @@ app.use(expressSession({secret: 'thisisasupersecretkey'}));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(routes);
 // Routes
 // =============================================================
-require("./routes/html-routes.js")(app);
-require("./routes/api-routes.js")(app);
+// require("./routes/html-routes.js")(app);
+// require("./routes/api-routes.js")(app);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================

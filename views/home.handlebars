@@ -1,51 +1,53 @@
 <!-- views/home.handlebars -->
 {{#if user}}
-  <div class="jumbotron">
-    <p>Please make a selection.</p>
+<div class="jumbotron">
+  <p>Please make a selection.</p>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Sequelize Init</h3>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Sequelize Init</h3>
-    </div>
-    <div class="panel-body">
+  <div class="panel-body">
+    <form id="initialize">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="check1">
-        <label class="form-check-label" for="check1">
+        <input class="form-check-input" type="checkbox" value="config-check" id="config-check">
+        <label class="form-check-label" for="config-check">
           Config
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="check2">
-        <label class="form-check-label" for="check2">
+        <input class="form-check-input" type="checkbox" value="migrations-check" id="migrations-check">
+        <label class="form-check-label" for="migrations-check">
           Models
         </label>
       </div>
-            <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="check3">
-        <label class="form-check-label" for="check3">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="models-check" id="models-check">
+        <label class="form-check-label" for="models-check">
           Migration
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="check4">
-        <label class="form-check-label" for="check4">
+        <input class="form-check-input" type="checkbox" value="seeders-check" id="seeders-check">
+        <label class="form-check-label" for="seeders-check">
           Seeders
         </label>
       </div>
-      <button id="btnSeq" class="btn btn-primary">Create</button>
-    </div>
+      <button id="btnSeq" type="submit" class="btn btn-primary">Create</button>
+    </form>
   </div>
+</div>
 
 {{else}}
-  <div class="jumbotron">
+<div class="jumbotron">
 
-    <p>Sign in and view your profile!</p>
-    <p>
-      <a href="/signin" class="btn btn-primary btn-lg" role="button">
-        <span class="glyphicon glyphicon-user"></span>
-        Sign in!
-      </a>
-    </p>
-  </div>
+  <p>Sign in and view your profile!</p>
+  <p>
+    <a href="/signin" class="btn btn-primary btn-lg" role="button">
+      <span class="glyphicon glyphicon-user"></span>
+      Sign in!
+    </a>
+  </p>
+</div>
 
 {{/if}}

@@ -11,27 +11,27 @@ btnSeq.click(e => {
     let cmdStr = "sequelize init";
     
 
-    if ($('#check1').is(":checked"))
+    if ($('#config-check').is(":checked"))
     {
         cmdStr += " init:config";
     }
 
-    if ($('#check2').is(":checked"))
-    {
-        cmdStr += " init:models";
-    }
-
-    if ($('#check3').is(":checked"))
+    if ($('#migrations-check').is(":checked"))
     {
         cmdStr += " init:migrations";
     }
 
-    if ($('#check4').is(":checked"))
+    if ($('#models-check').is(":checked"))
+    {
+        cmdStr += " init:models";
+    }
+
+    if ($('#seeders-check').is(":checked"))
     {
         cmdStr += " init:seeders";
     }
 
-    // console.log(cmdStr); 
+    console.log(cmdStr); 
     let command = {
         cmdStr:cmdStr
     };
