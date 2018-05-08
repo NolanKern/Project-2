@@ -152,8 +152,9 @@ let search = function(nameKey, nameValue, myArray){
 let zipUp = function(dir, cb){
     let zip = new EasyZip();
 
-    zip.zipFolder(dir,function(){
-        zip.writeToFile('app/public/assets/deliverables/folderall.zip', function(){
+    zip.zipFolder(dir, folderName, function(){
+        let workingDir = 'app/public/assets/deliverables/' + folderName + '/structure.zip';
+        zip.writeToFile(workingDir, function(){
         console.log("ZIPPED!");
         cb(dir);
         });
@@ -174,7 +175,7 @@ let runCommand = function(command, folderName) {
             console.log('stdout: ', stdout);
             console.log('stderr: ', stderr);
             console.log(error);
-            zipUp('app/build/'+folderName+'/', function(dir){
+            zipUp('app/build/',folderName, function(dir){
                 rimraf(dir, function (){
                     console.log('done');
                     resolve("Success");
