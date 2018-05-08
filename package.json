@@ -20,8 +20,12 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
+<<<<<<< HEAD
     "child-process": "^1.0.2",
     "child_process": "^1.0.2",
+=======
+    "child-process-promise": "^2.2.1",
+>>>>>>> 4e132b28aee2483f3a03c8a2f0a70a54439ec96a
     "easy-zip": "0.0.4",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",

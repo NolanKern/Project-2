@@ -30,9 +30,17 @@ app.set("view engine", "handlebars");
 var routes = require("./app/controllers/userauth_controller.js");
 
 // Set up Passport
+<<<<<<< HEAD
 const passport = require('passport');
 const expressSession = require('express-session');
 app.use(expressSession({secret: 'thisisasupersecretkey'}));
+=======
+const passport        = require('passport');
+const expressSession  = require('express-session');
+
+let myKey = process.env.sessionKey || 'thisisasupersecretkey';
+app.use(expressSession({secret: myKey}));
+>>>>>>> 4e132b28aee2483f3a03c8a2f0a70a54439ec96a
 app.use(passport.initialize());
 app.use(passport.session());
 

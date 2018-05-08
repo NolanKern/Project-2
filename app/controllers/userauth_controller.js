@@ -3,7 +3,7 @@ const passport      = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt        = require('bcryptjs');
 const fs            = require('fs');
-const exec          = require('child_process').exec;
+const exec          = require('child-process-promise').exec;
 const EasyZip       = require('easy-zip').EasyZip;
 const path          = require('path');
 const rimraf        = require('rimraf');
@@ -39,6 +39,11 @@ router.get('/dl', function(req, res) {
     res.render('dl', {user: req.user});
 });
 
+router.get('/get-file', function(req, res){
+    let file = path.join(__dirname, '../build/' + req.user.username + '/deliverables/structure.zip');
+    res.download(file);
+});
+
 router.post('/login',
     passport.authenticate('local', { failureRedirect: '/signin' }),
     function(req, res) {
@@ -53,7 +58,7 @@ router.post('/signup',
 
 router.post('/api/runCmd', function(req, res){
     let cmdStr = req.body.cmdStr;
-
+    console.log("THIS IS THE REQ USER " + req.user);
     runCommand(cmdStr, req.user.username).then(function(value){
         res.send({redirect: '/dl'});
     });
@@ -149,12 +154,14 @@ let search = function(nameKey, nameValue, myArray){
     }
 }
   
-let zipUp = function(dir, cb){
+let zipUp = function(dir, folderName, cb){
     let zip = new EasyZip();
+    
+    zip.zipFolder(dir, function(){
 
-    zip.zipFolder(dir, folderName, function(){
-        let workingDir = 'app/public/assets/deliverables/' + folderName + '/structure.zip';
-        zip.writeToFile(workingDir, function(){
+        let zipSave = 'app/build/' + folderName + '/deliverables/structure.zip';
+
+        zip.writeToFile(zipSave, function(){
         console.log("ZIPPED!");
         cb(dir);
         });
@@ -164,24 +171,37 @@ let zipUp = function(dir, cb){
 let runCommand = function(command, folderName) {
     return new Promise(function(resolve, reject) {
 
-        if (!fs.existsSync('app/build/')){
-            fs.mkdirSync('app/build/');
+        if (!fs.existsSync('app/build/' + folderName + '/')){
+            fs.mkdirSync('app/build/' + folderName + '/');
         }
-        let currentWD = '\app/build/' + folderName;
-        exec(command, {
-            cwd: currentWD
-        },function(error, stdout, stderr) {
 
-            console.log('stdout: ', stdout);
-            console.log('stderr: ', stderr);
-            console.log(error);
-            zipUp('app/build/',folderName, function(dir){
-                rimraf(dir, function (){
-                    console.log('done');
-                    resolve("Success");
+        if (!fs.existsSync('app/build/' + folderName + '/temp/')){
+            fs.mkdirSync('app/build/' + folderName + '/temp/');
+        }
+
+        if (!fs.existsSync('app/build/' + folderName + '/deliverables/')){
+            fs.mkdirSync('app/build/' + folderName + '/deliverables/');
+        }
+
+        let currentWD = '\app/build/' + folderName + '/temp/';
+
+        exec(command, {cwd: currentWD})
+            .then(function (result) {
+                var stdout = result.stdout;
+                var stderr = result.stderr;
+                console.log('stdout: ', stdout);
+                console.log('stderr: ', stderr);
+
+                zipUp('app/build/' + folderName + '/temp', folderName, function(dir){
+                    rimraf(dir, function (){
+                        console.log('done');
+                        resolve("Success");
+                    });
                 });
+            })
+            .catch(function (err) {
+                console.error('ERROR: ', err);
             });
-        });
     });
 }
 

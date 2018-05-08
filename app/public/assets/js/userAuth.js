@@ -4,12 +4,11 @@ const dwnldBtn      = $("#dwnldBtn");
 dwnldBtn.click(e => {
     e.preventDefault();  //stop the browser from following
 
-    window.location.href = '/assets/deliverables/folderall.zip';
+    window.location.href = '/get-file';
 });
 
 btnSeq.click(e => {
     let cmdStr = "sequelize init";
-    
 
     if ($('#config-check').is(":checked"))
     {
