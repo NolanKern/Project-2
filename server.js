@@ -26,7 +26,7 @@ var routes = require("./app/controllers/userauth_controller.js");
 // Set up Passport
 const passport        = require('passport');
 const expressSession  = require('express-session');
-app.use(expressSession({secret: 'mySecretKey'}));
+app.use(expressSession({secret: 'thisisasupersecretkey'}));
 app.use(passport.initialize());
 app.use(passport.session());
 

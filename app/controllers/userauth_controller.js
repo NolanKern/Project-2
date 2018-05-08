@@ -54,7 +54,7 @@ router.post('/signup',
 router.post('/api/runCmd', function(req, res){
     let cmdStr = req.body.cmdStr;
 
-    runCommand(cmdStr).then(function(value){
+    runCommand(cmdStr, req.user.username).then(function(value){
         res.send({redirect: '/dl'});
     });
 });
@@ -87,14 +87,18 @@ function(req, username, password, done) {
             if (!user) {
                 return done(null, false);
             }
-            
-            if (user.password != password) {
-                return done(null, false);
-            }
 
-            console.log("SUCCESS");
-            // console.log(user);
-            return done(null, user);
+            let hash = user.password;
+            
+            bcrypt.compare(password, hash).then((res) => {
+                if (res) {
+                    console.log("SUCCESS");
+                    return done(null, user);
+                } else {
+                    return done(null, false);
+                }
+            });
+
         }); 
 
     });
@@ -114,14 +118,21 @@ passport.use('signup', new LocalStrategy({
                 console.log('User already exists');
                 return done(null, false); 
             } else {
-                db.user.create({
-                    username: username,
-                    password: password
-                }).then(function(results){
-                    let user = JSON.parse(JSON.stringify(results));
-                    console.log("THE CREATED USER " + user);
-                    return done(null, user);
-                });
+                genHash(password).then(hash => {
+                    db.user.create({
+                        username: username,
+                        password: hash
+                    })
+                    .then(result => {
+                        let user = JSON.parse(JSON.stringify(results));
+                        console.log("THE CREATED USER " + user);
+                        return done(null, user);
+                    })
+                    .catch(err=>{
+                        console.log(err);
+                    })
+                })
+
             }
         });   
     }
@@ -149,21 +160,21 @@ let zipUp = function(dir, cb){
     });
 }
 
-let runCommand = function(command) {
+let runCommand = function(command, folderName) {
     return new Promise(function(resolve, reject) {
 
         if (!fs.existsSync('app/build/')){
             fs.mkdirSync('app/build/');
         }
+        let currentWD = '\app/build/' + folderName;
         exec(command, {
-            cwd: '\app/build'
+            cwd: currentWD
         },function(error, stdout, stderr) {
-            // var stdout = result.stdout;
-            // var stderr = result.stderr;
+
             console.log('stdout: ', stdout);
             console.log('stderr: ', stderr);
             console.log(error);
-            zipUp('app/build/', function(dir){
+            zipUp('app/build/'+folderName+'/', function(dir){
                 rimraf(dir, function (){
                     console.log('done');
                     resolve("Success");
@@ -172,6 +183,23 @@ let runCommand = function(command) {
         });
     });
 }
+
+let genHash = function(password) {
+  return new Promise(function(resolve, reject) {
+    bcrypt.genSalt(10, (err, salt) => {
+      if (err) {
+        reject(err);
+      }
+      
+      bcrypt.hash(password, salt, (err, hash) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(hash);
+      });
+    });
+  });
+};
 
 // Export routes for server.js to use.
 module.exports      = router;
